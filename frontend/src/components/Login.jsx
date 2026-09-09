@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useAuth} from "../context/useAuth.jsx";
 
 function Login() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const {login} = useAuth();
 
     const handleLogin = async (event) => {
 
@@ -35,13 +37,8 @@ function Login() {
 
             if (response.ok && data.accessToken) {
 
-                localStorage.setItem(
-                    "accessToken",
-                    data.accessToken
-                );
-
-                localStorage.setItem(
-                    "refreshToken",
+                login(
+                    data.accessToken,
                     data.refreshToken
                 );
 
