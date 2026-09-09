@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {useAuth} from "../context/useAuth.jsx";
 
 function Dashboard() {
 
     const [user, setUser] = useState(null);
     const [error, setError] = useState("");
-
+    const {logout} = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -49,10 +50,7 @@ function Dashboard() {
     }, [navigate]);
 
     const handleLogout = () => {
-
-        localStorage.removeItem("accessToken");
-
-        localStorage.removeItem("refreshToken");
+        logout;
 
         navigate("/login");
     };
