@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {useAuth} from "../context/useAuth.jsx";
+import { apiFetch } from "../services/api";
 
 function Dashboard() {
 
@@ -18,12 +19,7 @@ function Dashboard() {
             return;
         }
 
-        fetch("http://localhost:8080/api/profile", {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        })
+        apiFetch("/api/profile")
             .then(response => {
 
                 if (!response.ok) {
@@ -50,7 +46,7 @@ function Dashboard() {
     }, [navigate]);
 
     const handleLogout = () => {
-        logout;
+        logout();
 
         navigate("/login");
     };
